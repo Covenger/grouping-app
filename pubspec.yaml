@@ -66,3 +66,16 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
+
+  assets:
+    - assets/png/splash.png
+
+  fonts:
+    - family: NotoSansCJKkr
+      fonts:
+        - asset: assets/fonts/NotoSansCJKkr-Regular.otf
+        - asset: assets/fonts/NotoSansCJKkr-Medium.otf
+        - asset: assets/fonts/NotoSansCJKkr-Bold.otf
+    - family: BrownFox
+      fonts:
+        - asset: assets/fonts/Brown-Fox.ttf
