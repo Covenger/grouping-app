@@ -2,27 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:grouping/common/form_frame.dart';
 
-class PasswordPage extends StatefulWidget {
+class NamePage extends StatefulWidget {
   final FlutterSecureStorage _storage;
 
-  PasswordPage({Key key, @required storage})
+  NamePage({Key key, @required storage})
       : _storage = storage,
         super(key: key);
 
   @override
-  _PasswordPageState createState() => _PasswordPageState();
+  _NamePageState createState() => _NamePageState();
 }
 
-class _PasswordPageState extends State<PasswordPage> {
-  final _pwFieldController = TextEditingController();
+class _NamePageState extends State<NamePage> {
+  final _nameFieldController = TextEditingController();
 
-  bool _isPWValidated = false;
-  bool _hidePW = true;
+  bool _isNameValidated = false;
 
   @override
   void dispose() {
     super.dispose();
-    _pwFieldController.dispose();
+    _nameFieldController.dispose();
   }
 
   @override
@@ -37,7 +36,7 @@ class _PasswordPageState extends State<PasswordPage> {
             const Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: const Text(
-                'Password',
+                'Enter your name',
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   fontFamily: 'NotoSansCJKkr',
@@ -54,46 +53,36 @@ class _PasswordPageState extends State<PasswordPage> {
               ),
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.go,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(left: 50, top: 15, bottom: 15),
-                hintText: '8+ characters',
+              decoration: const InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                hintText: 'You Name',
                 hintStyle: const TextStyle(color: const Color(0xFFE1E1E1)),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: IconButton(
-                    icon: const Icon(Icons.remove_red_eye),
-                    tooltip: 'Show password',
-                    color: _hidePW ? Colors.grey : const Color(0xFF3338D0),
-                    onPressed: () => setState(() => _hidePW = !_hidePW),
-                  ),
-                ),
               ),
-              controller: _pwFieldController,
+              controller: _nameFieldController,
               onChanged: _validateForm,
-              onSubmitted: (val) async {
+              onSubmitted: (val) {
                 _validateForm(val);
-                if (_isPWValidated) {
-                  await widget._storage.write(key: 'password', value: val);
+                if (_isNameValidated) {
+                  widget._storage.write(key: 'name', value: val);
                   _nextPage();
                 }
               },
-              obscureText: _hidePW,
             ),
           ],
         ),
       ),
-      onSubmit: !_isPWValidated ? null : _nextPage,
+      onSubmit: !_isNameValidated ? null : _nextPage,
     );
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/signup/name');
+  void _nextPage() => Navigator.pushNamed(context, '/');
 
   void _validateForm(String val) {
-    final validateResult = val.length >= 8;
+    final validateResult = val.length >= 2;
 
-    if (_isPWValidated ^ validateResult) {
+    if (_isNameValidated ^ validateResult) {
       setState(() {
-        _isPWValidated = validateResult;
+        _isNameValidated = validateResult;
       });
     }
   }
