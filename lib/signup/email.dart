@@ -62,10 +62,10 @@ class _EmailPageState extends State<EmailPage> {
               ),
               controller: _emailFieldController,
               onChanged: _validateForm,
-              onSubmitted: (val) {
+              onSubmitted: (val) async {
                 _validateForm(val);
                 if (_isEmailValidated) {
-                  widget._storage.write(key: 'email', value: val);
+                  await widget._storage.write(key: 'email', value: val);
                   _nextPage();
                 }
               },

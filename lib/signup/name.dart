@@ -60,10 +60,10 @@ class _NamePageState extends State<NamePage> {
               ),
               controller: _nameFieldController,
               onChanged: _validateForm,
-              onSubmitted: (val) {
+              onSubmitted: (val) async {
                 _validateForm(val);
                 if (_isNameValidated) {
-                  widget._storage.write(key: 'name', value: val);
+                  await widget._storage.write(key: 'name', value: val);
                   _nextPage();
                 }
               },
