@@ -46,43 +46,38 @@ class _PasswordPageState extends State<PasswordPage> {
               ),
             ),
             const SizedBox(height: 15),
-            new Stack(
-              alignment: const Alignment(1, 0),
-              children: <Widget>[
-                TextField(
-                  autofocus: true,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.go,
-                  decoration: const InputDecoration(
-                    contentPadding: const EdgeInsets.only(left: 50, right: 70, top: 15, bottom: 15),
-                    hintText: '8+ characters',
-                    hintStyle: const TextStyle(color: const Color(0xFFE1E1E1)),
-                  ),
-                  controller: _pwFieldController,
-                  onChanged: _validateForm,
-                  onSubmitted: (val) async {
-                    _validateForm(val);
-                    if (_isPWValidated) {
-                      await widget._storage.write(key: 'password', value: val);
-                      _nextPage();
-                    }
-                  },
-                  obscureText: _hidePW,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
+            TextField(
+              autofocus: true,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.go,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(left: 50, top: 15, bottom: 15),
+                hintText: '8+ characters',
+                hintStyle: const TextStyle(color: const Color(0xFFE1E1E1)),
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.only(right: 10),
                   child: IconButton(
                     icon: const Icon(Icons.remove_red_eye),
                     tooltip: 'Show password',
                     color: _hidePW ? Colors.grey : const Color(0xFF3338D0),
                     onPressed: () => setState(() => _hidePW = !_hidePW),
                   ),
-                )
-              ],
+                ),
+              ),
+              controller: _pwFieldController,
+              onChanged: _validateForm,
+              onSubmitted: (val) async {
+                _validateForm(val);
+                if (_isPWValidated) {
+                  await widget._storage.write(key: 'password', value: val);
+                  _nextPage();
+                }
+              },
+              obscureText: _hidePW,
             ),
           ],
         ),
