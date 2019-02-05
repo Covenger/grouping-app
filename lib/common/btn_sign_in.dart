@@ -6,7 +6,7 @@ class SignInButton extends StatelessWidget {
   final double width;
   final Function onPress;
 
-  SignInButton({
+  const SignInButton({
     @required this.contents,
     @required this.onPress,
     @required this.btnColor,
