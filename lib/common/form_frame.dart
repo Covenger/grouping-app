@@ -6,7 +6,11 @@ class FormFrame extends StatelessWidget {
   final Widget content;
   final VoidCallback onSubmit;
 
-  const FormFrame({@required this.onSubmit, @required this.content});
+  const FormFrame({
+    Key key,
+    @required this.onSubmit,
+    @required this.content,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
