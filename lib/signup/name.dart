@@ -75,7 +75,7 @@ class _NamePageState extends State<NamePage> {
     );
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/');
+  void _nextPage() => Navigator.pushNamed(context, '/signup/sex_n_birth');
 
   void _validateForm(String val) {
     final validateResult = val.length >= 2;
