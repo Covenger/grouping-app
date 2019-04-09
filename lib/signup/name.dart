@@ -86,5 +86,5 @@ class _NamePageState extends State<NamePage> {
     }
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/signup/sex_n_birth');
+  void _nextPage() => Navigator.pushNamed(context, '/signup/gender_n_birth');
 }
