@@ -5,11 +5,24 @@ class FormFrame extends StatelessWidget {
 
   final Widget content;
   final VoidCallback onSubmit;
+  final List<Widget> confirmWidgets;
 
   const FormFrame({
     Key key,
     @required this.onSubmit,
     @required this.content,
+    this.confirmWidgets = const <Widget>[
+      const Text(
+        'NEXT',
+        style: TextStyle(fontSize: 16),
+      ),
+      const SizedBox(width: 5),
+      const Icon(
+        Icons.arrow_forward,
+        color: Colors.white,
+        size: 20,
+      ),
+    ],
   }) : super(key: key);
 
   @override
@@ -33,41 +46,32 @@ class FormFrame extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Create an account',
           textAlign: TextAlign.center,
         ),
       ),
       backgroundColor: Colors.white,
-      body: Stack(
-        children: <Widget>[
-          content,
-          Align(
-              alignment: AlignmentDirectional.bottomCenter,
-              child: FlatButton(
-                onPressed: onSubmit,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                color: Theme.of(context).primaryColor,
-                disabledColor: const Color(0xFFE1E1E1),
-                disabledTextColor: Colors.white,
-                textColor: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    const Text(
-                      'NEXT',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(width: 5),
-                    const Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              )),
-        ],
+      body: Form(
+        child: Stack(
+          children: <Widget>[
+            content,
+            Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: FlatButton(
+                  onPressed: onSubmit,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  color: Theme.of(context).primaryColor,
+                  disabledColor: const Color(0xFFE1E1E1),
+                  disabledTextColor: Colors.white,
+                  textColor: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: confirmWidgets,
+                  ),
+                )),
+          ],
+        ),
       ),
     );
   }
