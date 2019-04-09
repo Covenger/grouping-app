@@ -56,7 +56,7 @@ class _EmailPageState extends State<EmailPage> {
                     color: Colors.black,
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.go,
+                  textInputAction: TextInputAction.done,
                   decoration: const InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                     hintText: 'example@example.com',
@@ -65,6 +65,7 @@ class _EmailPageState extends State<EmailPage> {
                   controller: _emailController,
                   autovalidate: true,
                   validator: (_) => state.isValid ? null : state.errMsg,
+                  onFieldSubmitted: _onFieldSubmitted,
                 ),
               ],
             ),
@@ -77,6 +78,12 @@ class _EmailPageState extends State<EmailPage> {
 
   void _onEmailChanged() {
     _emailBloc.dispatch(_emailController.text);
+  }
+
+  void _onFieldSubmitted(String val) {
+    if (_emailBloc.currentState.isValid) {
+      _nextPage();
+    }
   }
 
   void _nextPage() => Navigator.pushNamed(context, '/signup/password');
