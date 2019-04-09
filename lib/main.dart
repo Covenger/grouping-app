@@ -24,7 +24,7 @@ class Grouping extends StatelessWidget {
         '/': (context) => SplashPage(),
         '/signup/email': (context) => EmailPage(),
         '/signup/password': (context) => PasswordPage(),
-        '/signup/name': (context) => NamePage(storage: storage),
+        '/signup/name': (context) => NamePage(),
         '/signup/sex_n_birth': (context) => SexNBirthPage(storage: storage),
       },
     );
