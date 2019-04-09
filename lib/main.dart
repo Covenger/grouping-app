@@ -23,7 +23,7 @@ class Grouping extends StatelessWidget {
       routes: {
         '/': (context) => SplashPage(),
         '/signup/email': (context) => EmailPage(),
-        '/signup/password': (context) => PasswordPage(storage: storage),
+        '/signup/password': (context) => PasswordPage(),
         '/signup/name': (context) => NamePage(storage: storage),
         '/signup/sex_n_birth': (context) => SexNBirthPage(storage: storage),
       },

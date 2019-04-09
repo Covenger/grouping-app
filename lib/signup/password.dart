@@ -1,100 +1,104 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grouping/blocks/signup/password.dart';
 import 'package:grouping/common/form_frame.dart';
 
 class PasswordPage extends StatefulWidget {
-  final FlutterSecureStorage _storage;
-
-  PasswordPage({Key key, @required storage})
-      : _storage = storage,
-        super(key: key);
-
   @override
   _PasswordPageState createState() => _PasswordPageState();
 }
 
 class _PasswordPageState extends State<PasswordPage> {
-  final _pwFieldController = TextEditingController();
+  final _passwordBloc = PasswordBloc();
+  final _pwController = TextEditingController();
 
-  bool _isPWValidated = false;
-  bool _hidePW = true;
+  @override
+  void initState() {
+    super.initState();
+    _pwController.addListener(_onPasswordChanged);
+  }
 
   @override
   void dispose() {
+    _pwController.dispose();
+    _passwordBloc.dispose();
     super.dispose();
-    _pwFieldController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FormFrame(
-      content: Align(
-        alignment: const Alignment(0, -0.7),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: const Text(
-                'Password',
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                  fontFamily: 'NotoSansCJKkr',
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            TextField(
-              autofocus: true,
-              style: const TextStyle(
-                fontSize: 20,
-                color: Colors.black,
-              ),
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.go,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(left: 50, top: 15, bottom: 15),
-                hintText: '8+ characters',
-                hintStyle: const TextStyle(color: const Color(0xFFE1E1E1)),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: IconButton(
-                    icon: const Icon(Icons.remove_red_eye),
-                    tooltip: 'Show password',
-                    color: _hidePW ? Colors.grey : const Color(0xFF3338D0),
-                    onPressed: () => setState(() => _hidePW = !_hidePW),
+    return BlocBuilder(
+      bloc: _passwordBloc,
+      builder: (BuildContext context, PasswordFormState state) {
+        return FormFrame(
+          content: Align(
+            alignment: const Alignment(0, -0.7),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: const Text(
+                    'Password',
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      fontFamily: 'NotoSansCJKkr',
+                      fontSize: 18,
+                    ),
                   ),
                 ),
-              ),
-              controller: _pwFieldController,
-              onChanged: _validateForm,
-              onSubmitted: (val) async {
-                _validateForm(val);
-                if (_isPWValidated) {
-                  await widget._storage.write(key: 'password', value: val);
-                  _nextPage();
-                }
-              },
-              obscureText: _hidePW,
+                const SizedBox(height: 15),
+                TextFormField(
+                  autofocus: true,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left: 50, top: 15, bottom: 15),
+                    hintText: '8+ characters',
+                    hintStyle: const TextStyle(color: const Color(0xFFE1E1E1)),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: IconButton(
+                        icon: const Icon(Icons.remove_red_eye),
+                        tooltip: 'Show password',
+                        color: state.hidePw ? Colors.grey : const Color(0xFF3338D0),
+                        onPressed: _onVisibilityChanged,
+                      ),
+                    ),
+                  ),
+                  controller: _pwController,
+                  autovalidate: true,
+                  validator: (_) => state.isValid ? null : state.errMsg,
+                  obscureText: state.hidePw,
+                  onFieldSubmitted: _onFieldSubmitted,
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-      onSubmit: !_isPWValidated ? null : _nextPage,
+          ),
+          onSubmit: state.isValid ? _nextPage : null,
+        );
+      },
     );
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/signup/name');
+  void _onPasswordChanged() {
+    _passwordBloc.dispatch(PasswordChanged(password: _pwController.text));
+  }
 
-  void _validateForm(String val) {
-    final validateResult = val.length >= 8;
+  void _onVisibilityChanged() {
+    _passwordBloc.dispatch(PasswordVisibilityChanged());
+  }
 
-    if (_isPWValidated ^ validateResult) {
-      setState(() {
-        _isPWValidated = validateResult;
-      });
+  void _onFieldSubmitted(String val) {
+    if (_passwordBloc.currentState.isValid) {
+      _nextPage();
     }
   }
+
+  void _nextPage() => Navigator.pushNamed(context, '/signup/name');
 }
