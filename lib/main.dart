@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:grouping/signup/validation_code.dart';
 import 'package:grouping/signup/email.dart';
 import 'package:grouping/signup/gender_n_birth.dart';
 import 'package:grouping/signup/name.dart';
@@ -9,12 +9,10 @@ import 'package:grouping/splash/main.dart';
 void main() => runApp(Grouping());
 
 class Grouping extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     // TODO: check sign-in
     String initialRoute = '/';
-    var storage = FlutterSecureStorage();
 
     return MaterialApp(
       title: 'Grouping',
@@ -26,6 +24,7 @@ class Grouping extends StatelessWidget {
         '/signup/password': (context) => PasswordPage(),
         '/signup/name': (context) => NamePage(),
         '/signup/gender_n_birth': (context) => GenderNBirthPage(),
+        '/signup/validate': (context) => ValidateCodePage(),
       },
     );
   }
