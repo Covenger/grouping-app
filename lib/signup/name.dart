@@ -31,10 +31,9 @@ class _NamePageState extends State<NamePage> {
       bloc: _nameBloc,
       builder: (BuildContext context, NameFormState state) {
         return FormFrame(
-          content: Align(
-            alignment: const Alignment(0, -0.7),
+          content: Container(
+            margin: const EdgeInsets.only(top: 40),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const Padding(

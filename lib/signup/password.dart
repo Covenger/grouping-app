@@ -31,10 +31,9 @@ class _PasswordPageState extends State<PasswordPage> {
       bloc: _passwordBloc,
       builder: (BuildContext context, PasswordFormState state) {
         return FormFrame(
-          content: Align(
-            alignment: const Alignment(0, -0.7),
+          content: Container(
+            margin: const EdgeInsets.only(top: 40),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const Padding(

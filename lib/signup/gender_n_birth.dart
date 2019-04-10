@@ -25,10 +25,9 @@ class _GenderNBirthPageState extends State<GenderNBirthPage> {
       bloc: _genderBirthBloc,
       builder: (BuildContext context, GenderBirthFormState state) {
         return FormFrame(
-          content: Align(
-            alignment: const Alignment(0, -0.6),
+          content: Container(
+            margin: const EdgeInsets.only(top: 40),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

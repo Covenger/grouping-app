@@ -31,10 +31,9 @@ class _EmailPageState extends State<EmailPage> {
       bloc: _emailBloc,
       builder: (BuildContext context, EmailFormState state) {
         return FormFrame(
-          content: Align(
-            alignment: const Alignment(0, -0.7),
+          content: Container(
+            margin: const EdgeInsets.only(top: 40),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const Padding(
@@ -80,7 +79,7 @@ class _EmailPageState extends State<EmailPage> {
     _emailBloc.dispatch(_emailController.text);
   }
 
-  void _onFieldSubmitted(String val) {
+  void _onFieldSubmitted(String _) {
     if (_emailBloc.currentState.isValid) {
       _nextPage();
     }

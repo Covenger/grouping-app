@@ -52,26 +52,22 @@ class FormFrame extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Form(
-        child: Stack(
-          children: <Widget>[
-            content,
-            Align(
-                alignment: AlignmentDirectional.bottomCenter,
-                child: FlatButton(
-                  onPressed: onSubmit,
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  color: Theme.of(context).primaryColor,
-                  disabledColor: const Color(0xFFE1E1E1),
-                  disabledTextColor: Colors.white,
-                  textColor: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: confirmWidgets,
-                  ),
-                )),
-          ],
-        ),
+      body: Column(
+        children: <Widget>[
+          Expanded(child: content),
+          FlatButton(
+            onPressed: onSubmit,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            color: Theme.of(context).primaryColor,
+            disabledColor: const Color(0xFFE1E1E1),
+            disabledTextColor: Colors.white,
+            textColor: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: confirmWidgets,
+            ),
+          ),
+        ],
       ),
     );
   }
