@@ -105,6 +105,14 @@ class GenderBirthBloc extends Bloc<GenderBirthFormEvent, GenderBirthFormState> {
   }
 
   GenderBirthFormState _handleBirthChanged(BirthdayChanged event) {
-    return currentState.copyWith(birthDay: event.birthDay, isBirthValid: true);
+    if (event.birthDay == null) {
+      if (currentState.birthDay == null) {
+        return currentState.copyWith(birthDay: null, isBirthValid: false);
+      } else {
+        return currentState.copyWith(birthDay: currentState.birthDay, isBirthValid: true);
+      }
+    } else {
+      return currentState.copyWith(birthDay: event.birthDay, isBirthValid: true);
+    }
   }
 }
