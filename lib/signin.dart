@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:grouping/blocks/signin.dart';
 import 'package:grouping/common/btn_sign_in.dart';
 import 'package:grouping/common/colors.dart';
 
@@ -41,6 +43,22 @@ class _SignInPageState extends State<SignInPage> {
     ),
   );
 
+  final _signInBloc = SignInBloc();
+  final _emailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController.addListener(_onEmailChanged);
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _signInBloc.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final pwFocus = FocusNode();
@@ -60,29 +78,32 @@ class _SignInPageState extends State<SignInPage> {
                 const SizedBox(height: 50),
                 const Center(child: _titleText),
                 const SizedBox(height: 70),
-                Form(
-                  autovalidate: true,
-                  child: Column(
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          _buildEmailField(context, pwFocus),
-                          const SizedBox(height: 20),
-                          _buildPasswordField(pwFocus),
-                        ],
-                      ),
-                      const SizedBox(height: 50),
-                      SignInButton(
-                        btnColor: Colors.white,
-                        contents: 'Sign in',
-                        // TODO
-                        onPress: () => print('asdf'),
-                        textColor: const Color(0xFF3338D0),
-                      ),
-                      _buildJoinButton(context)
-                    ],
-                  ),
-                )
+                BlocBuilder(
+                    bloc: _signInBloc,
+                    builder: (BuildContext context, SignInFormState state) {
+                      return Form(
+                        child: Column(
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                _buildEmailField(context, state, pwFocus),
+                                const SizedBox(height: 20),
+                                _buildPasswordField(state, pwFocus),
+                              ],
+                            ),
+                            const SizedBox(height: 50),
+                            SignInButton(
+                              btnColor: Colors.white,
+                              contents: 'Sign in',
+                              // TODO
+                              onPress: () => print('asdf'),
+                              textColor: const Color(0xFF3338D0),
+                            ),
+                            _buildJoinButton(context)
+                          ],
+                        ),
+                      );
+                    }),
               ],
             ),
           ),
@@ -135,8 +156,9 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  static TextFormField _buildEmailField(BuildContext context, FocusNode pwFocus) {
+  TextFormField _buildEmailField(BuildContext context, SignInFormState state, FocusNode pwFocus) {
     return TextFormField(
+      cursorColor: Colors.white,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       style: _textFieldStyle,
@@ -148,17 +170,21 @@ class _SignInPageState extends State<SignInPage> {
         hintStyle: _textFieldHintStyle,
         icon: emailIcon,
       ),
+      controller: _emailController,
+      autovalidate: true,
+      validator: (_) => state.isEmailValid ? null : 'Please enter a valid email address',
       onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(pwFocus),
     );
   }
 
-  static TextFormField _buildPasswordField(FocusNode pwFocus) {
+  TextFormField _buildPasswordField(SignInFormState state, FocusNode pwFocus) {
     return TextFormField(
+      cursorColor: Colors.white,
       focusNode: pwFocus,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       style: _textFieldStyle,
-      obscureText: true,
+      obscureText: state.hidePw,
       decoration: InputDecoration(
         alignLabelWithHint: true,
         enabledBorder: _textFieldEnabledBorder,
@@ -169,13 +195,18 @@ class _SignInPageState extends State<SignInPage> {
         suffixIcon: IconButton(
           icon: const Icon(Icons.remove_red_eye),
           tooltip: 'Show password',
-          // TODO
-          color: Colors.white,
-//          color: state.hidePw ? Colors.grey : const Color(0xFF3338D0),
-          // TODO
-          onPressed: () => print('pressed'),
+          color: state.hidePw ? Colors.grey : Colors.white,
+          onPressed: _onVisibilityChanged,
         ),
       ),
     );
+  }
+
+  void _onEmailChanged() {
+    _signInBloc.dispatch(EmailChanged(email: _emailController.text));
+  }
+
+  void _onVisibilityChanged() {
+    _signInBloc.dispatch(PasswordVisibilityChanged());
   }
 }
