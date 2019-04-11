@@ -43,6 +43,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final pwFocus = FocusNode();
+
     return Scaffold(
       backgroundColor: PrimaryColor,
       body: SafeArea(
@@ -64,9 +66,9 @@ class _SignInPageState extends State<SignInPage> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          _buildEmailField(),
+                          _buildEmailField(context, pwFocus),
                           const SizedBox(height: 20),
-                          _buildPasswordField(),
+                          _buildPasswordField(pwFocus),
                         ],
                       ),
                       const SizedBox(height: 50),
@@ -90,13 +92,14 @@ class _SignInPageState extends State<SignInPage> {
         alignment: Alignment.center,
         height: 60,
         decoration: const BoxDecoration(
-            border: const Border(
-          top: const BorderSide(
-            width: 1,
-            color: const Color(0xFF9397FF),
-            style: BorderStyle.solid,
+          border: const Border(
+            top: const BorderSide(
+              width: 1,
+              color: const Color(0xFF9397FF),
+              style: BorderStyle.solid,
+            ),
           ),
-        )),
+        ),
         child: GestureDetector(
           child: const Text(
             'Do you need help?',
@@ -132,7 +135,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  static TextFormField _buildEmailField() {
+  static TextFormField _buildEmailField(BuildContext context, FocusNode pwFocus) {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
@@ -145,11 +148,13 @@ class _SignInPageState extends State<SignInPage> {
         hintStyle: _textFieldHintStyle,
         icon: emailIcon,
       ),
+      onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(pwFocus),
     );
   }
 
-  static TextFormField _buildPasswordField() {
+  static TextFormField _buildPasswordField(FocusNode pwFocus) {
     return TextFormField(
+      focusNode: pwFocus,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       style: _textFieldStyle,
