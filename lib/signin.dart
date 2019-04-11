@@ -19,7 +19,7 @@ final Widget emailIcon = SvgPicture.asset(
 );
 
 class _SignInPageState extends State<SignInPage> {
-  static const _textFieldHintStyle = const TextStyle(color: const Color(0xFFE1E1E1));
+  static const _textFieldHintStyle = const TextStyle(color: const Color(0xCCFFFFFF));
   static const _textFieldStyle = const TextStyle(
     color: Colors.white,
     fontFamily: 'NotoSansCJKkr',
@@ -45,6 +45,47 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PrimaryColor,
+      body: SafeArea(
+        child: Container(
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(height: 50),
+                const Center(child: _titleText),
+                const SizedBox(height: 70),
+                Form(
+                  autovalidate: true,
+                  child: Column(
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          _buildEmailField(),
+                          const SizedBox(height: 20),
+                          _buildPasswordField(),
+                        ],
+                      ),
+                      const SizedBox(height: 50),
+                      SignInButton(
+                        btnColor: Colors.white,
+                        contents: 'Sign in',
+                        // TODO
+                        onPress: () => print('asdf'),
+                        textColor: const Color(0xFF3338D0),
+                      ),
+                      _buildJoinButton(context)
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       bottomNavigationBar: Container(
         alignment: Alignment.center,
         height: 60,
@@ -70,53 +111,23 @@ class _SignInPageState extends State<SignInPage> {
           onTap: () => print('need help'),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          const Center(child: _titleText),
-          const SizedBox(height: 70),
-          Form(
-            autovalidate: true,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Column(
-                    children: <Widget>[
-                      _buildEmailField(),
-                      const SizedBox(height: 30),
-                      _buildPasswordField(),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 50),
-                SignInButton(
-                  btnColor: Colors.white,
-                  contents: 'Sign in',
-                  // TODO
-                  onPress: () => print('asdf'),
-                  textColor: const Color(0xFF3338D0),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: GestureDetector(
-                    child: const Text(
-                      'Join us',
-                      style: const TextStyle(
-                        fontFamily: 'NotoSansCJKkr',
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    onTap: () => Navigator.pushNamed(context, '/signup/email'),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+    );
+  }
+
+  static Padding _buildJoinButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: GestureDetector(
+        child: const Text(
+          'Join us',
+          style: const TextStyle(
+            fontFamily: 'NotoSansCJKkr',
+            fontSize: 16,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        onTap: () => Navigator.pushNamed(context, '/signup/email'),
       ),
     );
   }
