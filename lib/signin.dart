@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -81,6 +82,19 @@ class _SignInPageState extends State<SignInPage> {
                 BlocBuilder(
                     bloc: _signInBloc,
                     builder: (BuildContext context, SignInFormState state) {
+                      if (state.lastSignInFailed) {
+                        Flushbar(
+                          title: 'Sign in failed',
+                          message: state.lastErrorMsg,
+                          backgroundColor: const Color(0xFF3338D0),
+                          duration: Duration(seconds: 3),
+                          animationDuration: const Duration(milliseconds: 300),
+                          flushbarPosition: FlushbarPosition.TOP,
+                          dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+                          flushbarStyle: FlushbarStyle.GROUNDED,
+                        ).show(context);
+                      }
+
                       return Form(
                         child: Column(
                           children: <Widget>[
@@ -95,8 +109,7 @@ class _SignInPageState extends State<SignInPage> {
                             SignInButton(
                               btnColor: Colors.white,
                               contents: 'Sign in',
-                              // TODO
-                              onPress: () => print('asdf'),
+                              onPress: _onSignIn,
                               textColor: const Color(0xFF3338D0),
                             ),
                             _buildJoinButton(context)
@@ -131,8 +144,7 @@ class _SignInPageState extends State<SignInPage> {
               fontSize: 14,
             ),
           ),
-          // TODO
-          onTap: () => print('need help'),
+          onTap: () => print('need help'), /* TODO */
         ),
       ),
     );
@@ -208,5 +220,9 @@ class _SignInPageState extends State<SignInPage> {
 
   void _onVisibilityChanged() {
     _signInBloc.dispatch(PasswordVisibilityChanged());
+  }
+
+  void _onSignIn() {
+    _signInBloc.dispatch(TrySignIn());
   }
 }

@@ -30,6 +30,8 @@ class EmailChanged extends SignInFormEvent {
 
 class PasswordVisibilityChanged extends SignInFormEvent {}
 
+class TrySignIn extends SignInFormEvent {}
+
 /* State */
 
 @immutable
@@ -37,20 +39,23 @@ class SignInFormState extends Equatable {
   final String email;
   final bool isEmailValid;
   final String password;
-  final String errMsg;
+  final bool lastSignInFailed;
+  final String lastErrorMsg;
   final bool hidePw;
 
   SignInFormState({
     @required this.email,
     @required this.isEmailValid,
     @required this.password,
-    @required this.errMsg,
+    @required this.lastSignInFailed,
+    @required this.lastErrorMsg,
     @required this.hidePw,
   }) : super([
           email,
           isEmailValid,
           password,
-          errMsg,
+          lastSignInFailed,
+          lastErrorMsg,
           hidePw,
         ]);
 
@@ -59,7 +64,8 @@ class SignInFormState extends Equatable {
       email: '',
       password: '',
       isEmailValid: false,
-      errMsg: '',
+      lastSignInFailed: false,
+      lastErrorMsg: '',
       hidePw: true,
     );
   }
@@ -68,6 +74,7 @@ class SignInFormState extends Equatable {
     String email,
     bool isEmailValid,
     String password,
+    bool isLastSignInValid,
     String errMsg,
     bool hidePw,
   }) {
@@ -75,7 +82,8 @@ class SignInFormState extends Equatable {
       email: email ?? this.email,
       isEmailValid: isEmailValid ?? this.isEmailValid,
       password: password ?? this.password,
-      errMsg: errMsg ?? this.errMsg,
+      lastSignInFailed: isLastSignInValid ?? this.lastSignInFailed,
+      lastErrorMsg: errMsg ?? this.lastErrorMsg,
       hidePw: hidePw ?? this.hidePw,
     );
   }
@@ -104,6 +112,10 @@ class SignInBloc extends Bloc<SignInFormEvent, SignInFormState> {
 
     if (event is PasswordVisibilityChanged) {
       yield currentState.copyWith(hidePw: !currentState.hidePw);
+    }
+
+    if (event is TrySignIn) {
+      // TODO
     }
   }
 }
