@@ -19,25 +19,18 @@ class RadioButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: SizedBox(
-        height: 150,
-        width: 150,
-        child: FlatButton(
-          child: child,
-          color: isSelected ? SelectedButton : UnselectedButton,
-          textColor: isSelected ? Colors.white : const Color(0xFFA7A7A7),
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: isSelected ? SelectedButtonBorder : UnselectedButtonBorder,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          onPressed: () => onChanged(value),
+    return FlatButton(
+      child: child,
+      color: isSelected ? SelectedButton : UnselectedButton,
+      textColor: isSelected ? Colors.white : const Color(0xFFA7A7A7),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: isSelected ? SelectedButtonBorder : UnselectedButtonBorder,
+          width: 1,
         ),
+        borderRadius: BorderRadius.circular(10),
       ),
+      onPressed: () => onChanged(value),
     );
   }
 }
