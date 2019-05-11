@@ -36,9 +36,9 @@ class SplashContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleText = Text(
+    const titleText = const Text(
       'Grouping',
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 24,
         fontFamily: 'BrownFox',
         color: Colors.white,
@@ -54,9 +54,9 @@ class SplashContents extends StatelessWidget {
           contents: 'JOIN US',
           onPress: onJoin,
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         SignInButton(
-          textColor: Color(0xFF3338D0),
+          textColor: const Color(0xFF3338D0),
           btnColor: Colors.white,
           contents: 'Sign in',
           onPress: onSignIn,

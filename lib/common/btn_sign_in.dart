@@ -6,13 +6,14 @@ class SignInButton extends StatelessWidget {
   final double width;
   final Function onPress;
 
-  SignInButton({
+  const SignInButton({
+    Key key,
     @required this.contents,
     @required this.onPress,
     @required this.btnColor,
     @required this.textColor,
     this.width = 230.0,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
