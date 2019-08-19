@@ -39,9 +39,11 @@ class SplashContents extends StatelessWidget {
     const titleText = const Text(
       'Grouping',
       style: const TextStyle(
-        fontSize: 24,
+        color: const Color(0xffffffff),
+        fontWeight: FontWeight.w400,
         fontFamily: 'BrownFox',
-        color: Colors.white,
+        fontStyle: FontStyle.normal,
+        fontSize: 24,
       ),
     );
 
