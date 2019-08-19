@@ -5,6 +5,8 @@ import 'package:grouping/common/colors.dart';
 import 'package:grouping/common/form_frame.dart';
 
 class ValidateCodePage extends StatefulWidget {
+  static const String routeName = 'signup/validate_code';
+
   @override
   _ValidateCodePageState createState() => _ValidateCodePageState();
 }

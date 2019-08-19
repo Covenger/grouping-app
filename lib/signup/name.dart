@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouping/blocks/signup/name.dart';
 import 'package:grouping/common/form_frame.dart';
 
+import 'gender_n_birth.dart';
+
 class NamePage extends StatefulWidget {
+  static const String routeName = 'signup/name';
+
   @override
   _NamePageState createState() => _NamePageState();
 }
@@ -85,5 +89,5 @@ class _NamePageState extends State<NamePage> {
     }
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/signup/gender_n_birth');
+  void _nextPage() => Navigator.pushNamed(context, GenderNBirthPage.routeName);
 }

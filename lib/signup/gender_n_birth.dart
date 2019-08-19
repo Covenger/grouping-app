@@ -5,7 +5,11 @@ import 'package:grouping/common/colors.dart';
 import 'package:grouping/common/form_frame.dart';
 import 'package:grouping/common/radio_button.dart';
 
+import 'validate_code.dart';
+
 class GenderNBirthPage extends StatefulWidget {
+  static const String routeName = 'signup/gender_n_birth';
+
   @override
   _GenderNBirthPageState createState() => _GenderNBirthPageState();
 }
@@ -86,7 +90,7 @@ class _GenderNBirthPageState extends State<GenderNBirthPage> {
     );
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/signup/validate');
+  void _nextPage() => Navigator.pushNamed(context, ValidateCodePage.routeName);
 
   void _onGenderChanged(Gender newGender) {
     _genderBirthBloc.dispatch(GenderChanged(gender: newGender));

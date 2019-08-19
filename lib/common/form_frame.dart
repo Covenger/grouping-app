@@ -6,6 +6,7 @@ class FormFrame extends StatelessWidget {
   final Widget content;
   final VoidCallback onSubmit;
   final List<Widget> confirmWidgets;
+  final bool isFirstPage;
 
   const FormFrame({
     Key key,
@@ -23,6 +24,7 @@ class FormFrame extends StatelessWidget {
         size: 20,
       ),
     ],
+    this.isFirstPage = false
   }) : super(key: key);
 
   @override
@@ -43,7 +45,7 @@ class FormFrame extends StatelessWidget {
         // brightness: Brightness.light,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.of(context, rootNavigator: isFirstPage).pop(),
         ),
         centerTitle: true,
         title: const Text(

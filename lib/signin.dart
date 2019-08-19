@@ -7,6 +7,8 @@ import 'package:grouping/common/colors.dart';
 import 'package:grouping/common/icons.dart';
 
 class SignInPage extends StatefulWidget {
+  static const String routeName = '/signin';
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
