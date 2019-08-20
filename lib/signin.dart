@@ -5,6 +5,7 @@ import 'package:grouping/blocks/signin.dart';
 import 'package:grouping/common/btn_sign_in.dart';
 import 'package:grouping/common/colors.dart';
 import 'package:grouping/common/icons.dart';
+import 'package:grouping/signup/signup.dart';
 
 class SignInPage extends StatefulWidget {
   static const String routeName = '/signin';
@@ -155,7 +156,7 @@ class _SignInPageState extends State<SignInPage> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        onTap: () => Navigator.pushNamed(context, '/signup/email'),
+        onTap: () => Navigator.pushNamed(context, SignUpPage.routeName),
       ),
     );
   }

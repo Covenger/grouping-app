@@ -119,5 +119,5 @@ class _ValidateCodePageState extends State<ValidateCodePage> {
     _codeBloc.dispatch(ResendCode());
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/');
+  void _nextPage() => Navigator.of(context, rootNavigator: true).pop();
 }
