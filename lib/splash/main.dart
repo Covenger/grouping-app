@@ -38,8 +38,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
           SplashContents(
             controller: animationController.view,
             onJoin: () => Navigator.pushNamed(context, '/signup/email'),
-            // FIXME: hard coded
-            onSignIn: () => print('sign in btn'),
+            onSignIn: () => Navigator.pushNamed(context, '/signin'),
           )
         ],
       ),
