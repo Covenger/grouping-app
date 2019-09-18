@@ -1,25 +1,18 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:grouping/blocks/signin.dart';
 import 'package:grouping/common/btn_sign_in.dart';
 import 'package:grouping/common/colors.dart';
+import 'package:grouping/common/icons.dart';
+import 'package:grouping/signup/signup.dart';
 
 class SignInPage extends StatefulWidget {
+  static const String routeName = '/signin';
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
-
-final Widget passwordIcon = SvgPicture.asset(
-  'assets/svg/password_icon.svg',
-  semanticsLabel: 'Password Icon',
-);
-
-final Widget emailIcon = SvgPicture.asset(
-  'assets/svg/email_icon.svg',
-  semanticsLabel: 'Email Icon',
-);
 
 class _SignInPageState extends State<SignInPage> {
   static const _textFieldHintStyle = const TextStyle(color: const Color(0xCCFFFFFF));
@@ -163,7 +156,7 @@ class _SignInPageState extends State<SignInPage> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        onTap: () => Navigator.pushNamed(context, '/signup/email'),
+        onTap: () => Navigator.pushNamed(context, SignUpPage.routeName),
       ),
     );
   }

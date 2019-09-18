@@ -5,6 +5,8 @@ import 'package:grouping/common/colors.dart';
 import 'package:grouping/common/form_frame.dart';
 
 class ValidateCodePage extends StatefulWidget {
+  static const String routeName = 'signup/validate_code';
+
   @override
   _ValidateCodePageState createState() => _ValidateCodePageState();
 }
@@ -117,5 +119,5 @@ class _ValidateCodePageState extends State<ValidateCodePage> {
     _codeBloc.dispatch(ResendCode());
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/');
+  void _nextPage() => Navigator.of(context, rootNavigator: true).pop();
 }

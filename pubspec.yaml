@@ -74,8 +74,14 @@ flutter:
 
   assets:
     - assets/png/splash.png
-    - assets/svg/password_icon.svg
+    - assets/svg/bell_icon.svg
     - assets/svg/email_icon.svg
+    - assets/svg/feed_btn.svg
+    - assets/svg/group_btn.svg
+    - assets/svg/password_icon.svg
+    - assets/svg/recom_btn.svg
+    - assets/svg/search_icon.svg
+    - assets/svg/setting_btn.svg
 
   fonts:
     - family: NotoSansCJKkr

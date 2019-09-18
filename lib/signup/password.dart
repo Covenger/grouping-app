@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouping/blocks/signup/password.dart';
 import 'package:grouping/common/form_frame.dart';
 
+import 'name.dart';
+
 class PasswordPage extends StatefulWidget {
+  static const String routeName = 'signup/password';
+
   @override
   _PasswordPageState createState() => _PasswordPageState();
 }
@@ -99,5 +103,5 @@ class _PasswordPageState extends State<PasswordPage> {
     }
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/signup/name');
+  void _nextPage() => Navigator.pushNamed(context, NamePage.routeName);
 }

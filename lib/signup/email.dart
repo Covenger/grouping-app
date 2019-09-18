@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouping/blocks/signup/email.dart';
 import 'package:grouping/common/form_frame.dart';
 
+import 'password.dart';
+
 class EmailPage extends StatefulWidget {
+  static const String routeName = 'signup/email';
+
   @override
   _EmailPageState createState() => _EmailPageState();
 }
@@ -69,6 +73,7 @@ class _EmailPageState extends State<EmailPage> {
               ],
             ),
           ),
+          isFirstPage: true,
           onSubmit: state.isValid ? _nextPage : null,
         );
       },
@@ -85,5 +90,5 @@ class _EmailPageState extends State<EmailPage> {
     }
   }
 
-  void _nextPage() => Navigator.pushNamed(context, '/signup/password');
+  void _nextPage() => Navigator.pushNamed(context, PasswordPage.routeName);
 }

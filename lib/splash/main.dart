@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:grouping/signin.dart';
+import 'package:grouping/signup/signup.dart';
 import 'package:grouping/splash/background.dart';
 import 'package:grouping/splash/contents.dart';
 
 class SplashPage extends StatefulWidget {
+  static const String routeName = '/';
+
   @override
   _SplashPageState createState() => _SplashPageState();
 }
@@ -37,8 +41,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
           SplashBackground(controller: animationController.view),
           SplashContents(
             controller: animationController.view,
-            onJoin: () => Navigator.pushNamed(context, '/signup/email'),
-            onSignIn: () => Navigator.pushNamed(context, '/signin'),
+            onJoin: () => Navigator.pushNamed(context, SignUpPage.routeName),
+            onSignIn: () => Navigator.pushNamed(context, SignInPage.routeName),
           )
         ],
       ),
