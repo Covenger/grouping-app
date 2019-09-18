@@ -26,54 +26,69 @@ class _GenderNBirthPageState extends State<GenderNBirthPage> {
       builder: (BuildContext context, GenderBirthFormState state) {
         return FormFrame(
           content: Container(
-            margin: const EdgeInsets.only(top: 40),
+            margin: const EdgeInsets.only(top: 40, left: 40, right: 40),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    RadioButton(
-                      value: Gender.Male,
-                      groupValue: state.gender,
-                      onChanged: _onGenderChanged,
-                      child: const Text(
-                        '\u{2642}', // ♂
-                        style: TextStyle(fontSize: 50),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: RadioButton(
+                          value: Gender.Male,
+                          groupValue: state.gender,
+                          onChanged: _onGenderChanged,
+                          child: const Text(
+                            '\u{2642}', // ♂
+                            style: TextStyle(
+                              fontFamily: 'NotoSansCJKkr',
+                              fontSize: 30,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    RadioButton(
-                      value: Gender.Female,
-                      groupValue: state.gender,
-                      onChanged: _onGenderChanged,
-                      child: const Text(
-                        '\u{2640}', // ♀
-                        style: TextStyle(fontSize: 50),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: RadioButton(
+                          value: Gender.Female,
+                          groupValue: state.gender,
+                          onChanged: _onGenderChanged,
+                          child: const Text(
+                            '\u{2640}', // ♀
+                            style: TextStyle(
+                              fontFamily: 'NotoSansCJKkr',
+                              fontSize: 30,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                SizedBox(
-                  height: 50,
-                  width: 320,
-                  child: FlatButton(
-                    onPressed: _selectBirthday,
-                    child: Text(
-                      state.isBirthValid
-                          ? '${state.birthDay.year}.${state.birthDay.month}.${state.birthDay.day}'
-                          : 'Select birthday',
-                      style: TextStyle(
-                        color: state.isBirthValid ? SelectedButtonText : UnselectedButtonText,
-                        fontSize: 18,
-                      ),
+                FlatButton(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  onPressed: _selectBirthday,
+                  child: Text(
+                    state.isBirthValid
+                        ? '${state.birthDay.year}.${state.birthDay.month}.${state.birthDay.day}'
+                        : 'Select birthday',
+                    style: TextStyle(
+                      color: state.isBirthValid ? SelectedButtonText : UnselectedButtonText,
+                      fontSize: 18,
                     ),
-                    color: state.isBirthValid ? SelectedButton : UnselectedButton,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: BorderSide(
-                        color: state.isBirthValid ? SelectedButtonBorder : UnselectedButtonBorder,
-                      ),
+                  ),
+                  color: state.isBirthValid ? SelectedButton : UnselectedButton,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(
+                      color: state.isBirthValid ? SelectedButtonBorder : UnselectedButtonBorder,
                     ),
                   ),
                 )

@@ -33,13 +33,14 @@ class SignInButton extends StatelessWidget {
               flex: 1,
               child: Text(
                 contents,
-                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: 'NotoSansCJKkr',
-                  fontSize: 16,
                   color: textColor,
                   fontWeight: FontWeight.w500,
+                  fontFamily: 'NotoSansCJKkr',
+                  fontStyle: FontStyle.normal,
+                  fontSize: 16,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
             Expanded(
